@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: Gabi
+
+  flyway:
+    locations: classpath:database/flyway/migration
