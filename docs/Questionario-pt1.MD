@@ -348,3 +348,36 @@ Resposta:
 Respostas: registrar abaixo de cada pergunta depois do teste; não colocar respostas, dados pessoais ou textos clínicos reais no repositório.
 
 **Pontuação Entrega 5:** ___ / 12. **Acumulada:** ___ / 58.
+
+
+---
+
+## Entrega 6 — Documentos e anexos (12 pontos)
+
+**Q59.** Qual é a diferença entre `documentos.conteudo` e `arquivos.chave_armazenamento`?
+
+**Q60.** Por que um upload utiliza `multipart/form-data` em vez de JSON?
+
+**Q61.** Por que não definimos manualmente `Content-Type: application/json` quando o corpo é `FormData`?
+
+**Q62.** Por que a pasta de anexos deve ficar fora de `frontend/public`, `application/frontend/artefatos` e do repositório?
+
+**Q63.** Por que salvar um arquivo como `<UUID>.bin` é preferível a usar seu nome original como caminho no disco?
+
+**Q64.** O que é verificação de *magic bytes*? Ela elimina a necessidade de antivírus? Explique.
+
+**Q65.** Por que o download usa `Content-Disposition: attachment` e `X-Content-Type-Options: nosniff`?
+
+**Q66.** Que problema de integridade surge se `documento_id` apontar para um documento de outro paciente?
+
+**Q67.** Por que marcar um documento como `EMITIDO` não equivale a assinar ou validar um documento psicológico?
+
+**Q68.** O que acontece se o arquivo for gravado em disco, mas a transação do PostgreSQL falhar ao confirmar?
+
+**Q69.** Por que um `BACKUP` da base PostgreSQL não recupera sozinho os arquivos privados?
+
+**Q70.** Cite quatro barreiras adicionais necessárias antes de aceitar arquivos ou registros clínicos verdadeiros.
+
+**Pontuação Entrega 6:** ___ / 12. **Acumulada:** ___ / 70.
+
+**Critério permanente:** menos de 50% requer revisão orientada, de 50% a 69% reforço focalizado e de 70% para cima avanço. Erros importantes de privacidade/segurança exigem revisão, mesmo com nota alta. Questões podem ser aplicadas individualmente após demonstrar os módulos.

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import type { Tela } from '../paginas/pacientes/Modelos'
 import { Icone } from './Icone'
-import { LogoGabriela } from './imagens/LogoGabriela';
+import { LogoGabriela } from './imagens/LogoGabriela'
 
 type IconeNome = Parameters<typeof Icone>[0]['nome']
 const navegacao: { tela?: Tela; nome: string; icone: IconeNome }[] = [
@@ -14,7 +14,7 @@ const navegacao: { tela?: Tela; nome: string; icone: IconeNome }[] = [
   { nome: 'Atendimento IA', icone: 'ia' },
   { nome: 'Financeiro', icone: 'financeiro' },
   { tela: 'servicos', nome: 'Serviços e valores', icone: 'servicos' },
-  { nome: 'Documentos', icone: 'documentos' },
+  { tela: 'documentos', nome: 'Documentos e anexos', icone: 'documentos' },
 ]
 
 export function Estrutura({ tela, mudarTela, sair, aoAtualizar, usuario, children }: {
@@ -24,7 +24,7 @@ export function Estrutura({ tela, mudarTela, sair, aoAtualizar, usuario, childre
   const [menuAberto, setMenuAberto] = useState(false)
   const titulos: Record<Tela, string> = {
     inicio: 'Visão geral', pacientes: 'Pacientes', agenda: 'Agenda clínica',
-    servicos: 'Serviços e valores', prontuarios: 'Prontuários', avaliacoes: 'Avaliações',
+    servicos: 'Serviços e valores', prontuarios: 'Prontuários', avaliacoes: 'Avaliações', documentos: 'Documentos e anexos',
   }
   return <div className="app-shell">
     <aside className={`sidebar ${menuAberto ? 'sidebar-aberta' : ''}`}>

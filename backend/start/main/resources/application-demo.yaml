@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 8MB
+      max-request-size: 9MB
   security:
     user:
       name: ${CAREBYGABI_DEMO_USER}

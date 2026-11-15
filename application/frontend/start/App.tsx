@@ -16,6 +16,7 @@ import { AgendaPagina } from '../../../frontend/paginas/agendamentos/Agenda'
 import { ServicosPagina } from '../../../frontend/paginas/servicos/Servicos'
 import { ProntuariosPagina } from '../../../frontend/paginas/prontuarios/Prontuarios'
 import { AvaliacoesPagina } from '../../../frontend/paginas/avaliacoes/Avaliacoes'
+import { DocumentosPagina } from '../../../frontend/paginas/documentos/Documentos'
 
 const dadosVazios: DadosClinica = { pacientes: [], servicos: [], agendamentos: [], prontuarios: [] }
 
@@ -142,6 +143,7 @@ export default function App() {
       aoEncerrar={id => executar('Prontuário encerrado', () => api.prontuarios.encerrar(credenciais, id))}
     />}
     {tela === 'avaliacoes' && <AvaliacoesPagina credenciais={credenciais} pacientes={dados.pacientes}/>}
+    {tela === 'documentos' && <DocumentosPagina credenciais={credenciais} pacientes={dados.pacientes}/>}
     {tela === 'servicos' && <ServicosPagina servicos={dados.servicos} ocupado={ocupado} aoSalvar={(id: string | null, d: ServicoFormulario) =>
       executar(id ? 'Serviço atualizado' : 'Serviço cadastrado', () => id ? api.servicos.atualizar(credenciais, id, d) : api.servicos.criar(credenciais, d))}/>}
   </Estrutura>
