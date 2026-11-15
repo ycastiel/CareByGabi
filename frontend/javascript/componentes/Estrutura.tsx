@@ -10,7 +10,7 @@ const navegacao: { tela?: Tela; nome: string; icone: IconeNome }[] = [
   { tela: 'pacientes', nome: 'Pacientes', icone: 'pacientes' },
   { tela: 'agenda', nome: 'Agenda clínica', icone: 'agenda' },
   { tela: 'prontuarios', nome: 'Prontuários', icone: 'prontuarios' },
-  { nome: 'Avaliações', icone: 'avaliacoes' },
+  { tela: 'avaliacoes', nome: 'Avaliações', icone: 'avaliacoes' },
   { nome: 'Atendimento IA', icone: 'ia' },
   { nome: 'Financeiro', icone: 'financeiro' },
   { tela: 'servicos', nome: 'Serviços e valores', icone: 'servicos' },
@@ -24,7 +24,7 @@ export function Estrutura({ tela, mudarTela, sair, aoAtualizar, usuario, childre
   const [menuAberto, setMenuAberto] = useState(false)
   const titulos: Record<Tela, string> = {
     inicio: 'Visão geral', pacientes: 'Pacientes', agenda: 'Agenda clínica',
-    servicos: 'Serviços e valores', prontuarios: 'Prontuários',
+    servicos: 'Serviços e valores', prontuarios: 'Prontuários', avaliacoes: 'Avaliações',
   }
   return <div className="app-shell">
     <aside className={`sidebar ${menuAberto ? 'sidebar-aberta' : ''}`}>

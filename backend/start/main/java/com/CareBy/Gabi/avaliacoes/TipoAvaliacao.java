@@ -1,0 +1,6 @@
+package com.CareBy.Gabi.avaliacoes;
+
+public enum TipoAvaliacao {
+    ENTREVISTA_SELECAO, ATENDIMENTO_CLINICO, AVALIACAO_PSICOLOGICA,
+    ACOMPANHAMENTO_ORGANIZACIONAL, OUTRA
+}

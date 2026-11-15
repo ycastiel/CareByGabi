@@ -315,3 +315,36 @@ Resposta:
 - Pontuação final: ___ / 12
 - Conceitos que precisam de reforço: ____________________
 - Data da retomada, se necessária: ___/___/____
+
+
+---
+
+## Entrega 5 — Avaliações (12 pontos)
+
+**Q47.** Por que `avaliacoes` é uma tabela diferente de `prontuarios` e `registros_clinicos`?
+
+**Q48.** O que significa guardar `dados_criterios` como um *snapshot* JSONB?
+
+**Q49.** Que riscos haveria em transformar uma escala demonstrativa de 1 a 5 em diagnóstico automático?
+
+**Q50.** Qual o papel de `@Valid`, `@NotBlank`, `@Min` e `@Max` nos records de entrada?
+
+**Q51.** Por que `AvaliacaoRequest` e `AvaliacaoResponse` não são a mesma classe?
+
+**Q52.** Por que o Spring Boot 4 usa `tools.jackson.databind.json.JsonMapper` nesta implementação?
+
+**Q53.** Em que pontos usamos `JdbcTemplate` em vez de `JpaRepository` e por quê? Quais são as vantagens e os custos da escolha?
+
+**Q54.** O que significa `CAST(? AS jsonb)` e por que os parâmetros são passados separadamente do SQL?
+
+**Q55.** Qual a diferença entre uma avaliação `RASCUNHO` e uma `REVISADA` na API?
+
+**Q56.** Por que fazemos `SELECT ... FOR UPDATE OF a` ao revisar/editar?
+
+**Q57.** Como verificamos se uma avaliação pertence ao paciente certo sem confiar apenas no React?
+
+**Q58.** Qual é o risco do `AutorDemo` fora de um ambiente fictício?
+
+Respostas: registrar abaixo de cada pergunta depois do teste; não colocar respostas, dados pessoais ou textos clínicos reais no repositório.
+
+**Pontuação Entrega 5:** ___ / 12. **Acumulada:** ___ / 58.
