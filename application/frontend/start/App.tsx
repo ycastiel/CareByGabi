@@ -9,6 +9,7 @@ import { Estrutura } from '../../../frontend/javascript/componentes/Estrutura'
 import { Icone } from '../../../frontend/javascript/componentes/Icone'
 import { CampoIcone } from '../../../frontend/javascript/componentes/CampoIcone'
 import { AeroAtmosfera } from '../../../frontend/javascript/componentes/temas/AeroAtmosfera'
+import { LogoGabriela } from '../../../frontend/javascript/componentes/imagens/LogoGabriela'
 import { InicioPagina } from '../../../frontend/paginas/Index'
 import { PacientesPagina } from '../../../frontend/paginas/pacientes/Pacientes'
 import { AgendaPagina } from '../../../frontend/paginas/agendamentos/Agenda'
@@ -87,7 +88,7 @@ export default function App() {
   }
 
   if (!credenciais) return <div className="login-pagina"><div className="login-esquerda"><AeroAtmosfera variante="entrada"/>
-    <div className="logo-login"><div className="marca-simbolo grande"><img src="/logo-gabriela.jpg" className="logo-profissional" alt="Identidade visual Gabriela" /></div><span>CareByGabi</span></div>
+    <div className="logo-login"><div className="marca-simbolo grande"><LogoGabriela className="logo-profissional" /></div><span>CareByGabi</span></div>
     <div className="login-mensagem"><span className="sobretitulo">SEU ESPAÇO DE CUIDADO</span><h1>Uma rotina mais leve começa com organização.</h1>
       <p>Pacientes, consultas e serviços em um só lugar. Uma demonstração construída para acompanhar o dia a dia clínico.</p></div>
     <div className="rodape-login">MVP local · Dados fictícios · Não é um prontuário clínico homologado</div>

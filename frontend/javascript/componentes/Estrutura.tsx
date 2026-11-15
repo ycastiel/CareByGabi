@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import type { Tela } from '../paginas/pacientes/Modelos'
 import { Icone } from './Icone'
+import { LogoGabriela } from './imagens/LogoGabriela';
 
 type IconeNome = Parameters<typeof Icone>[0]['nome']
 const navegacao: { tela?: Tela; nome: string; icone: IconeNome }[] = [
@@ -27,7 +28,7 @@ export function Estrutura({ tela, mudarTela, sair, aoAtualizar, usuario, childre
   return <div className="app-shell">
     <aside className={`sidebar ${menuAberto ? 'sidebar-aberta' : ''}`}>
       <div className="identidade">
-        <div className="marca-simbolo"><img src="/logo-gabriela.jpg" className="logo-profissional" alt="Identidade visual Gabriela" /></div>
+        <div className="marca-simbolo"><LogoGabriela className="logo-profissional" /></div>
         <div className="marca-texto"><strong>Gabriela Souza</strong><small>Psicologia & cuidado</small></div>
         <button className="botao-iconico fechar-menu" onClick={() => setMenuAberto(false)} aria-label="Fechar menu"><Icone nome="fechar" /></button>
       </div>

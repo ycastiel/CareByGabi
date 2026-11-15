@@ -5,12 +5,25 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 
+  /* Céu e água: azuis mais presentes, sem substituir o verde da marca */
+  --aero-celeste-50: #f2fbff;
+  --aero-celeste-100: #ddf6ff;
+  --aero-celeste-200: #b9e8f7;
+  --aero-celeste-300: #89d8ee;
+  --aero-celeste-500: #46b9d2;
+  --aero-celeste-700: #267c99;
+  --aero-azul-cristal: #46b9d2;
+  --aero-azul-escuro: #255f77;
+  --aero-reflexo-agua: rgb(79 189 222 / 17%);
+  --aero-borda-celeste: #c5e8f0;
+  --aero-sombra-celeste: 0 12px 38px rgb(53 130 158 / 10%), 0 3px 10px rgb(48 125 139 / 4%);
+
   /* Identidade: verde-sálvia original + céu, água e folha */
   --aero-ceu-50: #f0faff;
-  --aero-ceu-100: #daf4ff;
-  --aero-ceu-300: #8bd5f0;
-  --aero-ceu-500: #3a9bc6;
-  --aero-agua: #5fc0d6;
+  --aero-ceu-100: var(--aero-celeste-100);
+  --aero-ceu-300: var(--aero-celeste-300);
+  --aero-ceu-500: var(--aero-celeste-700);
+  --aero-agua: var(--aero-celeste-500);
   --aero-folha: #5aa884;
   --aero-folha-profunda: #276e55;
   --aero-salvia: #9baea7;
@@ -19,20 +32,20 @@
   --aero-lima: #daefaa;
 
   /* Superfícies translúcidas: glassmorphism deliberadamente discreto */
-  --aero-fundo: #f3f9f7;
+  --aero-fundo: #f0f9fb;
   --aero-superficie: #fff;
   --aero-vidro: rgb(255 255 255 / 83%);
   --aero-vidro-forte: rgb(255 255 255 / 94%);
   --aero-borda-vidro: rgb(255 255 255 / 91%);
-  --aero-borda: #d8e8e2;
+  --aero-borda: #d7e9e7;
   --aero-texto: #244537;
   --aero-texto-suave: #617c70;
   --aero-foco: #137a9a;
-  --aero-brilho: 0 0 0 3px rgb(84 182 204 / 18%);
-  --aero-sombra: 0 12px 38px rgb(37 96 87 / 8%), 0 2px 9px rgb(37 96 87 / 4%);
-  --aero-sombra-hover: 0 17px 44px rgb(37 96 87 / 13%), 0 4px 12px rgb(54 126 126 / 7%);
+  --aero-brilho: 0 0 0 3px rgb(70 185 210 / 22%);
+  --aero-sombra: var(--aero-sombra-celeste);
+  --aero-sombra-hover: 0 17px 44px rgb(53 130 158 / 16%), 0 5px 13px rgb(42 138 149 / 8%);
   --aero-gradiente-botao: linear-gradient(145deg, #368965 0%, #25775a 65%, #256c73 100%);
-  --aero-gradiente-paisagem: linear-gradient(155deg, #f4fcff 1%, #dbf4ff 33%, #e4f5ec 73%, #f8fbf6 100%);
+  --aero-gradiente-paisagem: linear-gradient(153deg, #f8feff 0%, #d8f3ff 31%, #c7eef5 56%, #e4f7ee 81%, #fbfefa 100%);
 
   /* Geometria, durações e easing */
   --aero-raio-campo: 12px;
