@@ -275,3 +275,43 @@ Resposta:
 | Botão Salvar serviço persiste somente quando acionado | — |
 | Q32–Q34 | — / 3 |
 | **Total acumulado Q01–Q34** | **— / 34** |
+
+
+---
+
+## Entrega 4 — Prontuários demonstrativos e Visual 2.2
+
+> Responda **após demonstrar** o novo módulo. Não coloque dados reais, senhas nem textos clínicos no caderno. Critério de revisão permanece o do questionário original: menos de 50% exige retomada, 50–69% requer reforço e 70% ou mais permite avançar, com revisão obrigatória de erros importantes de segurança.
+
+**Q35.** Explique a diferença entre `pacientes`, `prontuarios` e `registros_clinicos`. Por que não armazenamos tudo diretamente em `pacientes`?
+
+**Q36.** O banco já possui `prontuarios` e `registros_clinicos` na V1. Por que não criamos uma nova migration para o módulo nesta entrega?
+
+**Q37.** O relacionamento `prontuarios.paciente_id` é `UNIQUE`. Qual regra de negócio essa restrição representa?
+
+**Q38.** Qual a diferença entre salvar `RASCUNHO` e finalizar como `FINALIZADO`? Qual resposta HTTP esperamos ao tentar editar um registro já finalizado?
+
+**Q39.** Por que o backend exige que não existam rascunhos antes de encerrar um prontuário? Onde esta regra deve ser aplicada?
+
+**Q40.** O que significa `@Profile("demo")` nos endpoints clínicos? Isso, sozinho, permite utilizar prontuários com pacientes reais? Explique.
+
+**Q41.** Por que a V1 exige `autor_id` e por que o `AutorDemo` é um recurso estritamente temporário?
+
+**Q42.** Qual a finalidade do `@Lock(PESSIMISTIC_WRITE)` nas operações de atualização e finalização?
+
+**Q43.** Diferencie a proteção contra edição pela API de uma garantia de imutabilidade diretamente no PostgreSQL.
+
+**Q44.** Na Visual 2.2, quais elementos devem receber cores de superfície e quais situações justificam um indicador de estado mais chamativo?
+
+**Q45.** Como os novos tokens `--aero-superficie-ceu` e `--aero-painel-azul` ajudam a manter consistência e permitir ajustes globais?
+
+**Q46.** Cite três verificações manuais de acessibilidade antes de apresentar o módulo (por exemplo: teclado, contraste, dispositivos móveis).
+
+### Registro da avaliação da Entrega 4
+
+- Data: ___/___/____
+- Acertos completos: ___
+- Respostas parciais: ___
+- Pontuação final: ___ / 12
+- Conceitos que precisam de reforço: ____________________
+- Data da retomada, se necessária: ___/___/____

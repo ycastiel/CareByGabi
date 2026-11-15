@@ -57,5 +57,29 @@ export interface DadosClinica {
   pacientes: Paciente[]
   servicos: Servico[]
   agendamentos: Agendamento[]
+  prontuarios: Prontuario[]
 }
-export type Tela = 'inicio' | 'pacientes' | 'agenda' | 'servicos'
+export type SituacaoProntuario = 'ABERTO' | 'ENCERRADO'
+export type CategoriaRegistro = 'ANAMNESE' | 'EVOLUCAO' | 'NOTA_RESTRITA' | 'OUTRO'
+export type SituacaoRegistro = 'RASCUNHO' | 'FINALIZADO'
+
+export interface Prontuario {
+  id: string
+  pacienteId: string
+  pacienteNome: string
+  abertoEm: string
+  encerradoEm: string | null
+  situacao: SituacaoProntuario
+}
+export interface RegistroClinico {
+  id: string
+  prontuarioId: string
+  categoria: CategoriaRegistro
+  conteudo: string
+  situacao: SituacaoRegistro
+  criadoEm: string
+  atualizadoEm: string
+  finalizadoEm: string | null
+}
+export interface RegistroFormulario { categoria: CategoriaRegistro; conteudo: string }
+export type Tela = 'inicio' | 'pacientes' | 'agenda' | 'servicos' | 'prontuarios'
