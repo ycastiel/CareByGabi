@@ -109,6 +109,7 @@
 	</dependencies>
 
 	<build>
+		<directory>${project.basedir}/../application/backend/artefatos</directory>
 		<sourceDirectory>start/main/java</sourceDirectory>
 		<testSourceDirectory>start/test/java</testSourceDirectory>
 
@@ -161,6 +162,28 @@
 									<artifactId>lombok</artifactId>
 								</path>
 							</annotationProcessorPaths>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.6.2</version>
+
+				<executions>
+					<execution>
+						<id>adicionar-entrada-application</id>
+						<phase>generate-sources</phase>
+
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+
+						<configuration>
+							<sources>
+								<source>${project.basedir}/../application/backend/start/java</source>
+							</sources>
 						</configuration>
 					</execution>
 				</executions>

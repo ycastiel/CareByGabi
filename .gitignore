@@ -4,6 +4,8 @@
 node_modules/
 
 # Artefatos de compilação e testes
+application/**/artefatos/
+
 # Maven / Java
 target/
 

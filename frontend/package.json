@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint",
-    "preview": "vite preview"
+    "dev": "vite --config ../application/config/vite.config.mts",
+    "build": "tsc -b ../application/config/tsconfig.json && vite build --config ../application/config/vite.config.mts",
+    "preview": "vite preview --config ../application/config/vite.config.mts",
+    "lint": "oxlint"
   },
   "dependencies": {
     "react": "^19.3.1",
