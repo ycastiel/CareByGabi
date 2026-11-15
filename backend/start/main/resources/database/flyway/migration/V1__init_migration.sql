@@ -1,8 +1,9 @@
--- Plataforma Clínica Gabriela — Migração inicial (rascunho para revisão)
--- PostgreSQL 15+ | Flyway V1 | Dados fictícios em desenvolvimento.
+
+-- CareByGabi — V1: estrutura inicial (revisada antes da primeira aplicação)
+-- PostgreSQL 15+ | Flyway V1 | Apenas estrutura, sem dados reais.
 -- Versões de migrations já aplicadas NÃO devem ser editadas. Ajustes posteriores: V2, V3...
--- Tipos e status são controlados por CHECKs nesta primeira versão;
--- em Java, mapear para enums. Evitar dados clínicos em logs.
+-- Status e classificações são VARCHAR + CHECK; mapear com enums Java.
+-- Não incluir dados pessoais ou clínicos em logs, seeds ou repositório.
 
 -- 1. Autenticação: a aplicação terá inicialmente uma única profissional.
 CREATE TABLE usuarios (
@@ -16,26 +17,28 @@ CREATE TABLE usuarios (
 );
 CREATE UNIQUE INDEX uq_usuarios_email_normalizado ON usuarios (LOWER(email));
 
--- 2. Identidade comum a pacientes clínicos e avaliados externos.
-CREATE TABLE pessoas (
+-- 2. Cadastro inicial: pacientes clínicos, avaliados externos e responsáveis.
+-- A classificação única é provisória; múltiplos papéis podem requerer modelagem própria.
+CREATE TABLE pacientes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     nome VARCHAR(180) NOT NULL,
     data_nascimento DATE,
     telefone VARCHAR(30),
     email VARCHAR(320),
-    cpf VARCHAR(11),
+    cpf VARCHAR(11) CHECK (cpf IS NULL OR cpf ~ '^[0-9]{11}$'),
     vinculo VARCHAR(24) NOT NULL DEFAULT 'PACIENTE'
         CHECK (vinculo IN ('PACIENTE', 'AVALIADO_EXTERNO', 'AMBOS', 'RESPONSAVEL')),
     situacao VARCHAR(12) NOT NULL DEFAULT 'ATIVO'
         CHECK (situacao IN ('ATIVO', 'INATIVO')),
     convenio VARCHAR(120),
-    responsavel_principal_id UUID REFERENCES pessoas(id) ON DELETE RESTRICT,
+    responsavel_principal_id UUID REFERENCES pacientes(id) ON DELETE RESTRICT,
     observacoes_administrativas TEXT,
     criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    CONSTRAINT ck_pessoa_responsavel_diferente CHECK (responsavel_principal_id IS NULL OR responsavel_principal_id <> id)
+    CONSTRAINT ck_paciente_responsavel_diferente CHECK (responsavel_principal_id IS NULL OR responsavel_principal_id <> id)
 );
-CREATE INDEX idx_pessoas_nome ON pessoas (nome);
+CREATE INDEX idx_pacientes_nome ON pacientes (nome);
+CREATE UNIQUE INDEX uq_pacientes_cpf_informado ON pacientes (cpf) WHERE cpf IS NOT NULL;
 
 -- 3. Catálogo de serviços e valores de referência.
 CREATE TABLE servicos (
@@ -50,10 +53,10 @@ CREATE TABLE servicos (
     criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- 4. Somente pessoas com acompanhamento clínico terão prontuário.
+-- 4. Apenas cadastros com acompanhamento clínico devem ter prontuário (validar no serviço).
 CREATE TABLE prontuarios (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    pessoa_id UUID NOT NULL UNIQUE REFERENCES pessoas(id) ON DELETE RESTRICT,
+    paciente_id UUID NOT NULL UNIQUE REFERENCES pacientes(id) ON DELETE RESTRICT,
     aberto_em DATE NOT NULL DEFAULT CURRENT_DATE,
     encerrado_em DATE,
     situacao VARCHAR(12) NOT NULL DEFAULT 'ABERTO'
@@ -65,7 +68,7 @@ CREATE TABLE prontuarios (
 -- 5. Agenda: uma marcação não significa que o atendimento aconteceu.
 CREATE TABLE agendamentos (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    pessoa_id UUID NOT NULL REFERENCES pessoas(id) ON DELETE RESTRICT,
+    paciente_id UUID NOT NULL REFERENCES pacientes(id) ON DELETE RESTRICT,
     servico_id UUID NOT NULL REFERENCES servicos(id) ON DELETE RESTRICT,
     inicio_em TIMESTAMPTZ NOT NULL,
     fim_em TIMESTAMPTZ NOT NULL,
@@ -79,12 +82,12 @@ CREATE TABLE agendamentos (
     CONSTRAINT ck_agendamento_periodo CHECK (fim_em > inicio_em)
 );
 CREATE INDEX idx_agendamentos_inicio ON agendamentos (inicio_em);
-CREATE INDEX idx_agendamentos_pessoa_inicio ON agendamentos (pessoa_id, inicio_em);
+CREATE INDEX idx_agendamentos_paciente_inicio ON agendamentos (paciente_id, inicio_em);
 
 -- 6. Evento efetivamente realizado (pode existir sem agendamento prévio).
 CREATE TABLE atendimentos (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    pessoa_id UUID NOT NULL REFERENCES pessoas(id) ON DELETE RESTRICT,
+    paciente_id UUID NOT NULL REFERENCES pacientes(id) ON DELETE RESTRICT,
     agendamento_id UUID UNIQUE REFERENCES agendamentos(id) ON DELETE RESTRICT,
     servico_id UUID REFERENCES servicos(id) ON DELETE RESTRICT,
     iniciado_em TIMESTAMPTZ NOT NULL,
@@ -95,7 +98,7 @@ CREATE TABLE atendimentos (
     criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT ck_atendimento_periodo CHECK (encerrado_em IS NULL OR encerrado_em >= iniciado_em)
 );
-CREATE INDEX idx_atendimentos_pessoa_data ON atendimentos (pessoa_id, iniciado_em DESC);
+CREATE INDEX idx_atendimentos_paciente_data ON atendimentos (paciente_id, iniciado_em DESC);
 
 -- 7. Registros clínicos e retificações append-only de versões finalizadas.
 CREATE TABLE registros_clinicos (
@@ -111,15 +114,17 @@ CREATE TABLE registros_clinicos (
         CHECK (situacao IN ('RASCUNHO', 'FINALIZADO')),
     criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    finalizado_em TIMESTAMPTZ
+    finalizado_em TIMESTAMPTZ,
+    CONSTRAINT ck_registro_finalizado_em CHECK (situacao <> 'FINALIZADO' OR finalizado_em IS NOT NULL)
 );
 CREATE INDEX idx_registros_prontuario_data ON registros_clinicos (prontuario_id, criado_em DESC);
+CREATE INDEX idx_registros_atendimento ON registros_clinicos (atendimento_id) WHERE atendimento_id IS NOT NULL;
 
 -- 8. Avaliações clínicas OU organizacionais; critérios capturados como snapshot JSONB.
 -- Ex.: dados_criterios = [{"modulo":"Comunicação","criterio":"Clareza", "nivel":3,"evidencia":"..."}]
 CREATE TABLE avaliacoes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    pessoa_id UUID NOT NULL REFERENCES pessoas(id) ON DELETE RESTRICT,
+    paciente_id UUID NOT NULL REFERENCES pacientes(id) ON DELETE RESTRICT,
     atendimento_id UUID REFERENCES atendimentos(id) ON DELETE RESTRICT,
     autor_id UUID NOT NULL REFERENCES usuarios(id) ON DELETE RESTRICT,
     tipo VARCHAR(30) NOT NULL CHECK (tipo IN (
@@ -138,12 +143,13 @@ CREATE TABLE avaliacoes (
     realizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
-CREATE INDEX idx_avaliacoes_pessoa_data ON avaliacoes (pessoa_id, realizado_em DESC);
+CREATE INDEX idx_avaliacoes_paciente_data ON avaliacoes (paciente_id, realizado_em DESC);
+CREATE INDEX idx_avaliacoes_atendimento ON avaliacoes (atendimento_id) WHERE atendimento_id IS NOT NULL;
 
 -- 9. Documentos: tipo + modelo no próprio registro; conteúdo preservado como snapshot.
 CREATE TABLE documentos (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    pessoa_id UUID NOT NULL REFERENCES pessoas(id) ON DELETE RESTRICT,
+    paciente_id UUID NOT NULL REFERENCES pacientes(id) ON DELETE RESTRICT,
     atendimento_id UUID REFERENCES atendimentos(id) ON DELETE RESTRICT,
     autor_id UUID NOT NULL REFERENCES usuarios(id) ON DELETE RESTRICT,
     tipo VARCHAR(30) NOT NULL CHECK (tipo IN (
@@ -161,13 +167,13 @@ CREATE TABLE documentos (
     atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT ck_documento_emissao CHECK (situacao <> 'EMITIDO' OR emitido_em IS NOT NULL)
 );
-CREATE INDEX idx_documentos_pessoa_data ON documentos (pessoa_id, criado_em DESC);
+CREATE INDEX idx_documentos_paciente_data ON documentos (paciente_id, criado_em DESC);
 
 -- 10. Referências de anexos, versões exportadas e gravações em storage privado.
 -- O áudio NÃO é gravado como BYTEA no banco.
 CREATE TABLE arquivos (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    pessoa_id UUID REFERENCES pessoas(id) ON DELETE RESTRICT,
+    paciente_id UUID REFERENCES pacientes(id) ON DELETE RESTRICT,
     atendimento_id UUID REFERENCES atendimentos(id) ON DELETE RESTRICT,
     documento_id UUID REFERENCES documentos(id) ON DELETE RESTRICT,
     enviado_por_id UUID REFERENCES usuarios(id) ON DELETE RESTRICT,
@@ -185,7 +191,7 @@ CREATE INDEX idx_arquivos_atendimento ON arquivos (atendimento_id);
 -- 11. Cobrança preserva o valor contratado, mesmo após mudança no catálogo.
 CREATE TABLE cobrancas (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    pessoa_id UUID NOT NULL REFERENCES pessoas(id) ON DELETE RESTRICT,
+    paciente_id UUID NOT NULL REFERENCES pacientes(id) ON DELETE RESTRICT,
     servico_id UUID REFERENCES servicos(id) ON DELETE RESTRICT,
     atendimento_id UUID REFERENCES atendimentos(id) ON DELETE RESTRICT,
     descricao VARCHAR(255) NOT NULL,
@@ -195,7 +201,7 @@ CREATE TABLE cobrancas (
         CHECK (situacao IN ('PENDENTE', 'PARCIAL', 'PAGA', 'CANCELADA')),
     criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
-CREATE INDEX idx_cobrancas_pessoa ON cobrancas (pessoa_id);
+CREATE INDEX idx_cobrancas_paciente ON cobrancas (paciente_id);
 CREATE INDEX idx_cobrancas_vencimento ON cobrancas (vencimento_em);
 
 -- 12. Uma cobrança pode receber vários pagamentos parciais.
@@ -214,8 +220,8 @@ CREATE INDEX idx_pagamentos_cobranca ON pagamentos (cobranca_id);
 -- 13. Registro por finalidade; não pressupõe que consentimento seja a base legal universal.
 CREATE TABLE consentimentos (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    pessoa_id UUID NOT NULL REFERENCES pessoas(id) ON DELETE RESTRICT,
-    concedido_por_pessoa_id UUID REFERENCES pessoas(id) ON DELETE RESTRICT,
+    paciente_id UUID NOT NULL REFERENCES pacientes(id) ON DELETE RESTRICT,
+    concedido_por_paciente_id UUID REFERENCES pacientes(id) ON DELETE RESTRICT,
     registrado_por_id UUID NOT NULL REFERENCES usuarios(id) ON DELETE RESTRICT,
     comprovante_arquivo_id UUID REFERENCES arquivos(id) ON DELETE RESTRICT,
     finalidade VARCHAR(30) NOT NULL CHECK (finalidade IN (
@@ -230,7 +236,7 @@ CREATE TABLE consentimentos (
         (situacao = 'REVOGADO' AND revogado_em IS NOT NULL)
         OR (situacao = 'CONCEDIDO' AND revogado_em IS NULL))
 );
-CREATE INDEX idx_consentimentos_pessoa_finalidade ON consentimentos (pessoa_id, finalidade, concedido_em DESC);
+CREATE INDEX idx_consentimentos_paciente_finalidade ON consentimentos (paciente_id, finalidade, concedido_em DESC);
 
 -- 14. Texto e trechos de uma transcrição; resumo fica como rascunho, nunca como evolução automática.
 CREATE TABLE transcricoes (
@@ -266,7 +272,7 @@ CREATE INDEX idx_auditoria_usuario_data ON logs_auditoria (usuario_id, criado_em
 CREATE INDEX idx_auditoria_entidade ON logs_auditoria (entidade, entidade_id);
 
 -- Regras de serviço importantes para implementar no backend:
--- * Validar se agendamento, atendimento, prontuário e avaliação referenciam a mesma pessoa.
+-- * Validar se agendamento, atendimento, prontuário e avaliação referenciam o mesmo paciente.
 -- * Impedir edição destrutiva de registros FINALIZADOS e documentos EMITIDOS;
 --   corrigir por novo registro/documento com referência e trilha de auditoria.
 -- * Validar conflitos de agenda e somatório de pagamentos no Java (transacionalmente).
