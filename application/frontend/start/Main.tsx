@@ -1,10 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import App from './App'
 import '../../../frontend/css/index.css'
-import App from './App.tsx'
+import '../../../frontend/css/paginas/App.css'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+const raiz = document.getElementById('root')
+if (!raiz) throw new Error('O elemento #root não foi encontrado no index.html.')
+createRoot(raiz).render(<StrictMode><App /></StrictMode>)
