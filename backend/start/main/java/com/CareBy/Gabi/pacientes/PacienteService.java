@@ -1,6 +1,6 @@
 package com.CareBy.Gabi.pacientes;
 
-import com.CareBy.Gabi.compartilhado.ExcecaoNegocio;
+import com.CareBy.Gabi.helpers.ExcecaoNegocio;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;

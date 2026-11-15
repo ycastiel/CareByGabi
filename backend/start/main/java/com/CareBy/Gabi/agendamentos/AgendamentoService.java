@@ -1,6 +1,6 @@
 package com.CareBy.Gabi.agendamentos;
 
-import com.CareBy.Gabi.compartilhado.ExcecaoNegocio;
+import com.CareBy.Gabi.helpers.ExcecaoNegocio;
 import com.CareBy.Gabi.pacientes.Paciente;
 import com.CareBy.Gabi.pacientes.PacienteRepository;
 import com.CareBy.Gabi.pacientes.SituacaoPaciente;
