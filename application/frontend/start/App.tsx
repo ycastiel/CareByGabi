@@ -3,7 +3,7 @@ import type { FormEvent } from 'react'
 import { api, ErroApi } from '../../../frontend/javascript/paginas/servicos/Api'
 import type {
   AgendamentoFormulario, Credenciais, DadosClinica, PacienteFormulario,
-  ServicoFormulario, Prontuario, Tela,
+  Prontuario, ServicoFormulario, Tela,
 } from '../../../frontend/javascript/paginas/pacientes/Modelos'
 import { Estrutura } from '../../../frontend/javascript/componentes/Estrutura'
 import { Icone } from '../../../frontend/javascript/componentes/Icone'
@@ -15,6 +15,7 @@ import { PacientesPagina } from '../../../frontend/paginas/pacientes/Pacientes'
 import { AgendaPagina } from '../../../frontend/paginas/agendamentos/Agenda'
 import { ServicosPagina } from '../../../frontend/paginas/servicos/Servicos'
 import { ProntuariosPagina } from '../../../frontend/paginas/prontuarios/Prontuarios'
+import { AvaliacoesPagina } from '../../../frontend/paginas/avaliacoes/Avaliacoes'
 
 const dadosVazios: DadosClinica = { pacientes: [], servicos: [], agendamentos: [], prontuarios: [] }
 
@@ -140,6 +141,7 @@ export default function App() {
         () => api.prontuarios.finalizarRegistro(credenciais, id, registroId))}
       aoEncerrar={id => executar('Prontuário encerrado', () => api.prontuarios.encerrar(credenciais, id))}
     />}
+    {tela === 'avaliacoes' && <AvaliacoesPagina credenciais={credenciais} pacientes={dados.pacientes}/>}
     {tela === 'servicos' && <ServicosPagina servicos={dados.servicos} ocupado={ocupado} aoSalvar={(id: string | null, d: ServicoFormulario) =>
       executar(id ? 'Serviço atualizado' : 'Serviço cadastrado', () => id ? api.servicos.atualizar(credenciais, id, d) : api.servicos.criar(credenciais, d))}/>}
   </Estrutura>

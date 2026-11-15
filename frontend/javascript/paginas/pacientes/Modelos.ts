@@ -82,4 +82,4 @@ export interface RegistroClinico {
   finalizadoEm: string | null
 }
 export interface RegistroFormulario { categoria: CategoriaRegistro; conteudo: string }
-export type Tela = 'inicio' | 'pacientes' | 'agenda' | 'servicos' | 'prontuarios'
+export type Tela = 'inicio' | 'pacientes' | 'agenda' | 'servicos' | 'prontuarios' | 'avaliacoes'
