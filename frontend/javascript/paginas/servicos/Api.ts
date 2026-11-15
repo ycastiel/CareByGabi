@@ -1,6 +1,6 @@
 import type {
   Agendamento, AgendamentoFormulario, Credenciais, Paciente, PacienteFormulario,
-  Servico, ServicoFormulario,
+  Servico, ServicoFormulario, Prontuario, RegistroClinico, RegistroFormulario,
 } from '../pacientes/Modelos'
 
 export class ErroApi extends Error {
@@ -60,5 +60,20 @@ export const api = {
     listar: (c: Credenciais) => requisicao<Agendamento[]>(c, '/agendamentos'),
     criar: (c: Credenciais, dados: AgendamentoFormulario) => requisicao<Agendamento>(c, '/agendamentos', { method: 'POST', body: json(dados) }),
     atualizar: (c: Credenciais, id: string, dados: AgendamentoFormulario) => requisicao<Agendamento>(c, `/agendamentos/${id}`, { method: 'PUT', body: json(dados) }),
+  },
+  prontuarios: {
+    listar: (c: Credenciais) => requisicao<Prontuario[]>(c, '/prontuarios'),
+    abrir: (c: Credenciais, pacienteId: string) => requisicao<Prontuario>(c, '/prontuarios',
+      { method: 'POST', body: json({ pacienteId }) }),
+    registros: (c: Credenciais, id: string) => requisicao<RegistroClinico[]>(c, `/prontuarios/${id}/registros`),
+    criarRegistro: (c: Credenciais, id: string, dados: RegistroFormulario) => requisicao<RegistroClinico>(c,
+      `/prontuarios/${id}/registros`, { method: 'POST', body: json(dados) }),
+    atualizarRegistro: (c: Credenciais, id: string, registroId: string, dados: RegistroFormulario) =>
+      requisicao<RegistroClinico>(c, `/prontuarios/${id}/registros/${registroId}`,
+        { method: 'PUT', body: json(dados) }),
+    finalizarRegistro: (c: Credenciais, id: string, registroId: string) =>
+      requisicao<RegistroClinico>(c, `/prontuarios/${id}/registros/${registroId}/finalizar`, { method: 'POST' }),
+    encerrar: (c: Credenciais, id: string) => requisicao<Prontuario>(c,
+      `/prontuarios/${id}/encerrar`, { method: 'POST' }),
   },
 }

@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import type { FormEvent } from 'react'
 import { api, ErroApi } from '../../../frontend/javascript/paginas/servicos/Api'
 import type {
   AgendamentoFormulario, Credenciais, DadosClinica, PacienteFormulario,
-  ServicoFormulario, Tela,
+  ServicoFormulario, Prontuario, Tela,
 } from '../../../frontend/javascript/paginas/pacientes/Modelos'
 import { Estrutura } from '../../../frontend/javascript/componentes/Estrutura'
 import { Icone } from '../../../frontend/javascript/componentes/Icone'
@@ -14,8 +14,9 @@ import { InicioPagina } from '../../../frontend/paginas/Index'
 import { PacientesPagina } from '../../../frontend/paginas/pacientes/Pacientes'
 import { AgendaPagina } from '../../../frontend/paginas/agendamentos/Agenda'
 import { ServicosPagina } from '../../../frontend/paginas/servicos/Servicos'
+import { ProntuariosPagina } from '../../../frontend/paginas/prontuarios/Prontuarios'
 
-const dadosVazios: DadosClinica = { pacientes: [], servicos: [], agendamentos: [] }
+const dadosVazios: DadosClinica = { pacientes: [], servicos: [], agendamentos: [], prontuarios: [] }
 
 export default function App() {
   const [credenciais, setCredenciais] = useState<Credenciais | null>(null)
@@ -26,13 +27,19 @@ export default function App() {
   const [ocupado, setOcupado] = useState(false)
   const [erro, setErro] = useState('')
   const [aviso, setAviso] = useState('')
+  const [versaoRegistros, setVersaoRegistros] = useState(0)
 
   async function buscarTudo(c: Credenciais): Promise<DadosClinica> {
-    const [pacientes, servicos, agendamentos] = await Promise.all([
-      api.pacientes.listar(c), api.servicos.listar(c), api.agendamentos.listar(c),
+    const [pacientes, servicos, agendamentos, prontuarios] = await Promise.all([
+      api.pacientes.listar(c), api.servicos.listar(c), api.agendamentos.listar(c), api.prontuarios.listar(c),
     ])
-    return { pacientes, servicos, agendamentos }
+    return { pacientes, servicos, agendamentos, prontuarios }
   }
+
+  const listarRegistros = useCallback((id: string) => {
+    if (!credenciais) return Promise.reject(new Error('Acesso demonstrativo encerrado.'))
+    return api.prontuarios.registros(credenciais, id)
+  }, [credenciais])
 
   async function entrar(evento: FormEvent<HTMLFormElement>) {
     evento.preventDefault()
@@ -70,6 +77,7 @@ export default function App() {
     try {
       await operacao()
       setDados(await buscarTudo(credenciais))
+      setVersaoRegistros(v => v + 1)
       setAviso(`${descricao} com sucesso. Os dados foram gravados no PostgreSQL.`)
       return true
     } catch (ex) {
@@ -77,6 +85,15 @@ export default function App() {
       if (ex instanceof ErroApi && ex.status === 401) setCredenciais(null)
       return false
     } finally { setOcupado(false) }
+  }
+
+  async function abrirProntuario(pacienteId: string): Promise<Prontuario | null> {
+    if (!credenciais) return null
+    let criado: Prontuario | null = null
+    const ok = await executar('Prontuário demonstrativo aberto', async () => {
+      criado = await api.prontuarios.abrir(credenciais, pacienteId)
+    })
+    return ok ? criado : null
   }
 
   function sair() {
@@ -112,6 +129,17 @@ export default function App() {
       ocupado={ocupado} irParaPacientes={() => setTela('pacientes')} irParaServicos={() => setTela('servicos')}
       aoSalvar={(id: string | null, d: AgendamentoFormulario) => executar(id ? 'Agendamento atualizado' : 'Consulta agendada', () =>
         id ? api.agendamentos.atualizar(credenciais, id, d) : api.agendamentos.criar(credenciais, d))}/>}
+    {tela === 'prontuarios' && <ProntuariosPagina
+      pacientes={dados.pacientes} prontuarios={dados.prontuarios} versaoRegistros={versaoRegistros}
+      ocupado={ocupado} aoAbrir={abrirProntuario}
+      aoListarRegistros={listarRegistros}
+      aoSalvarRegistro={(id, dadosRegistro, registroId) => executar(registroId ? 'Rascunho atualizado' : 'Rascunho salvo',
+        () => registroId ? api.prontuarios.atualizarRegistro(credenciais, id, registroId, dadosRegistro)
+          : api.prontuarios.criarRegistro(credenciais, id, dadosRegistro))}
+      aoFinalizarRegistro={(id, registroId) => executar('Registro finalizado',
+        () => api.prontuarios.finalizarRegistro(credenciais, id, registroId))}
+      aoEncerrar={id => executar('Prontuário encerrado', () => api.prontuarios.encerrar(credenciais, id))}
+    />}
     {tela === 'servicos' && <ServicosPagina servicos={dados.servicos} ocupado={ocupado} aoSalvar={(id: string | null, d: ServicoFormulario) =>
       executar(id ? 'Serviço atualizado' : 'Serviço cadastrado', () => id ? api.servicos.atualizar(credenciais, id, d) : api.servicos.criar(credenciais, d))}/>}
   </Estrutura>
