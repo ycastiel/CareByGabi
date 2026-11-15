@@ -31,6 +31,17 @@
   --aero-creme: #f8fbf6;
   --aero-lima: #daefaa;
 
+  /* Etapa Visual 2.2: superfícies mais coloridas, sem perder contraste textual */
+  --aero-superficie-ceu: #e5f7ff;
+  --aero-superficie-lago: #d6f0f7;
+  --aero-superficie-folha: #e0f3e7;
+  --aero-superficie-brisa: #e8f7f1;
+  --aero-painel-azul: linear-gradient(145deg, #e8f9ff, #d8f0f8 55%, #eaf9f1);
+  --aero-painel-verde: linear-gradient(145deg, #e6f7ee, #dcf2eb 62%, #e8f9fe);
+  --aero-fundo-paisagem: linear-gradient(128deg, #e2f5fa 0%, #e5f6ee 42%, #d5f1f8 100%);
+  --aero-contorno-vivo: #a6d9de;
+  --aero-texto-azul: #1c5e70;
+
   /* Superfícies translúcidas: glassmorphism deliberadamente discreto */
   --aero-fundo: #f0f9fb;
   --aero-superficie: #fff;
