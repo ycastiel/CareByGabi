@@ -2,5 +2,15 @@ spring:
   application:
     name: Gabi
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Carebygabi
+    username: postgres
+    password: ${DB_PASSWORD}
+
   flyway:
+    enabled: true
     locations: classpath:database/flyway/migration
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
