@@ -1,34 +1,59 @@
-HELP.md
+# CareByGabi — monorepo Spring Boot + React/Vite
+
+# Dependências JavaScript (npm workspaces)
+node_modules/
+
+# Artefatos de compilação e testes
+application/**/artefatos/
+
+# Maven / Java
 target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
+# Vite / frontend
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Caches locais
+.vite/
+.cache/
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.temp
+
+# Configurações locais e segredos
 .env
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+.env.*
+!.env.example
+!.env.*.example
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# Dados locais e arquivos potencialmente sensíveis
+uploads/
+backups/
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.bak
+
+# Configurações locais de editores e IDEs
+.vscode/
+.idea/
 *.iml
 *.ipr
+*.iws
+.classpath
+.project
+.factorypath
+.settings/
+.apt_generated/
+.springBeans
+.sts4-cache/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-
-.vscode/
+# Arquivos gerados pelo sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
