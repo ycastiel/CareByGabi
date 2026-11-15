@@ -1,10 +1,13 @@
 import type { SVGProps } from 'react'
 
-type IconeNome =
+export type IconeNome =
   | 'inicio' | 'pacientes' | 'agenda' | 'servicos' | 'prontuarios' | 'financeiro'
   | 'avaliacoes' | 'documentos' | 'ia' | 'adicionar' | 'buscar' | 'fechar'
   | 'atualizar' | 'sair' | 'calendario' | 'relogio' | 'checar' | 'alerta'
   | 'seta' | 'menu' | 'editar' | 'escudo' | 'setaCima'
+  | 'usuario' | 'email' | 'telefone' | 'identificacao' | 'convenio'
+  | 'vinculo' | 'nota' | 'dinheiro' | 'globo' | 'local' | 'cadeado'
+  | 'brilho' | 'folha' | 'atividade' | 'numero' | 'descricao'
 
 const desenhos: Record<IconeNome, string[]> = {
   inicio: ['M3 11 12 3l9 8', 'M5 10v11h14V10', 'M9 21v-7h6v7'],
@@ -30,6 +33,22 @@ const desenhos: Record<IconeNome, string[]> = {
   editar: ['M12 20h9', 'M16 4a2.1 2.1 0 0 1 3 3L9 17l-4 1 1-4z'],
   escudo: ['M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', 'm9 12 2 2 4-4'],
   setaCima: ['M12 19V5', 'm5 12 7-7 7 7'],
+  usuario: ['M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2', 'M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8'],
+  email: ['M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2', 'm2 7 10 7 10-7'],
+  telefone: ['M22 16.8v3a2 2 0 0 1-2.2 2 19 19 0 0 1-17.6-17.6A2 2 0 0 1 4.2 2h3a2 2 0 0 1 2 1.7l.5 3a2 2 0 0 1-.6 1.7L7.3 10.2a15 15 0 0 0 6.5 6.5l1.8-1.8a2 2 0 0 1 1.7-.6l3 .5a2 2 0 0 1 1.7 2z'],
+  identificacao: ['M3 5h18v14H3z', 'M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4', 'M5 15c0-2 6-2 6 0', 'M14 9h5', 'M14 13h5'],
+  convenio: ['M3 9 12 4l9 5', 'M5 10v10h14V10', 'M9 13v4', 'M15 13v4', 'M3 20h18'],
+  vinculo: ['M7 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6', 'M17 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6', 'M2 19v-2a5 5 0 0 1 10 0v2', 'M12 19v-2a5 5 0 0 1 10 0v2', 'M9 12h6'],
+  nota: ['M4 3h16v18H4z', 'M8 8h8', 'M8 12h8', 'M8 16h5'],
+  dinheiro: ['M2 6h20v12H2z', 'M7 12h.01', 'M17 12h.01', 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6'],
+  globo: ['M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20', 'M2 12h20', 'M12 2c5 5 5 15 0 20', 'M12 2c-5 5-5 15 0 20'],
+  local: ['M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0', 'M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4'],
+  cadeado: ['M5 10h14v11H5z', 'M8 10V7a4 4 0 0 1 8 0v3', 'M12 14v3'],
+  brilho: ['m12 2 2.1 7.9L22 12l-7.9 2.1L12 22l-2.1-7.9L2 12l7.9-2.1L12 2z'],
+  folha: ['M20 4C9 4 4 9 4 16c0 3 2 5 5 5 7 0 12-5 11-17z', 'M5 19c3-5 7-8 12-11'],
+  atividade: ['M3 12h4l3-6 4 12 3-6h4'],
+  numero: ['M4 8h16', 'M4 16h16', 'M10 3 7 21', 'M17 3l-3 18'],
+  descricao: ['M5 4h14v16H5z', 'M8 9h8', 'M8 13h8', 'M8 17h6'],
 }
 
 export function Icone({ nome, tamanho = 20, ...props }: SVGProps<SVGSVGElement> & {

@@ -1,0 +1,73 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+
+  /* Identidade: verde-sálvia original + céu, água e folha */
+  --aero-ceu-50: #f0faff;
+  --aero-ceu-100: #daf4ff;
+  --aero-ceu-300: #8bd5f0;
+  --aero-ceu-500: #3a9bc6;
+  --aero-agua: #5fc0d6;
+  --aero-folha: #5aa884;
+  --aero-folha-profunda: #276e55;
+  --aero-salvia: #9baea7;
+  --aero-salvia-clara: #e8efea;
+  --aero-creme: #f8fbf6;
+  --aero-lima: #daefaa;
+
+  /* Superfícies translúcidas: glassmorphism deliberadamente discreto */
+  --aero-fundo: #f3f9f7;
+  --aero-superficie: #fff;
+  --aero-vidro: rgb(255 255 255 / 83%);
+  --aero-vidro-forte: rgb(255 255 255 / 94%);
+  --aero-borda-vidro: rgb(255 255 255 / 91%);
+  --aero-borda: #d8e8e2;
+  --aero-texto: #244537;
+  --aero-texto-suave: #617c70;
+  --aero-foco: #137a9a;
+  --aero-brilho: 0 0 0 3px rgb(84 182 204 / 18%);
+  --aero-sombra: 0 12px 38px rgb(37 96 87 / 8%), 0 2px 9px rgb(37 96 87 / 4%);
+  --aero-sombra-hover: 0 17px 44px rgb(37 96 87 / 13%), 0 4px 12px rgb(54 126 126 / 7%);
+  --aero-gradiente-botao: linear-gradient(145deg, #368965 0%, #25775a 65%, #256c73 100%);
+  --aero-gradiente-paisagem: linear-gradient(155deg, #f4fcff 1%, #dbf4ff 33%, #e4f5ec 73%, #f8fbf6 100%);
+
+  /* Geometria, durações e easing */
+  --aero-raio-campo: 12px;
+  --aero-raio-card: 21px;
+  --aero-raio-pilula: 999px;
+  --aero-transicao: 210ms cubic-bezier(.22, 1, .36, 1);
+  --aero-transicao-lenta: 420ms cubic-bezier(.22, 1, .36, 1);
+
+  /* Compatibilidade com App.css do MVP 1–3 */
+  --cor-primaria: var(--aero-folha-profunda);
+  --cor-primaria-escura: #1d5846;
+  --cor-fundo: var(--aero-fundo);
+  --cor-superficie: var(--aero-superficie);
+  --cor-texto: var(--aero-texto);
+  --cor-secundaria: var(--aero-texto-suave);
+  --cor-linha: var(--aero-borda);
+  --cor-suave: var(--aero-salvia-clara);
+  --sombra: var(--aero-sombra);
+
+  background: var(--aero-fundo);
+  color: var(--aero-texto);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { min-width: 320px; }
+body { min-width: 320px; min-height: 100vh; margin: 0; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .58; }
+a { color: inherit; }
+input, select, textarea { min-width: 0; }
+:where(button, input, select, textarea, a):focus-visible {
+  outline: 2px solid var(--aero-foco);
+  outline-offset: 3px;
+}
+::selection { background: #bdebe1; color: #184936; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

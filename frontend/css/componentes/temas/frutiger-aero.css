@@ -1,0 +1,273 @@
+.app-shell {
+  background:
+    radial-gradient(ellipse 55% 38% at 93% 3%, rgb(175 226 244 / 35%), transparent 75%),
+    radial-gradient(ellipse 58% 58% at 18% 98%, rgb(183 234 197 / 28%), transparent 80%),
+    var(--aero-fundo);
+}
+.sidebar {
+  background: linear-gradient(180deg, rgb(255 255 255 / 95%), rgb(244 252 249 / 91%));
+  border-right: 1px solid rgb(178 217 216 / 62%);
+  box-shadow: 7px 0 28px rgb(43 116 106 / 3%);
+}
+.identidade { border-bottom-color: #deeee9; }
+.marca-simbolo {
+  border-radius: 17px;
+  background: linear-gradient(148deg, #fff, #e0f9ff 57%, #dcf6e3);
+  box-shadow: inset 0 1px 2px #fff, 0 6px 18px rgb(48 136 122 / 13%);
+  transition: box-shadow var(--aero-transicao), transform var(--aero-transicao);
+  overflow: hidden;
+}
+.marca-simbolo:hover { transform: translateY(-2px); box-shadow: 0 0 0 3px rgb(128 218 223 / 19%), 0 8px 22px rgb(48 136 122 / 16%); }
+.logo-profissional { background: rgb(255 255 255 / 66%); }
+.marca-texto strong { color: #25533f; }
+.marca-texto small, .navegacao-titulo, .sobretitulo { color: #428775; }
+.item-navegacao { transition: color var(--aero-transicao), background var(--aero-transicao), border-color var(--aero-transicao), transform var(--aero-transicao); }
+.item-navegacao:hover:not(:disabled) {
+  background: linear-gradient(110deg, #e2f6f4, #ecf8e8 85%);
+  color: #205f57;
+  border-color: #c8e8df;
+  transform: translateX(2px);
+}
+.item-navegacao.selecionado {
+  background: linear-gradient(105deg, #d9f2ef 0%, #e4f4e2 64%, #eff9e9);
+  color: #246b53;
+  border-color: #bfdfd5;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 93%), 0 5px 14px rgb(55 127 104 / 7%);
+}
+.item-navegacao.selecionado::before {
+  content: ''; position: absolute; inset: 7px auto 7px 0; width: 3px;
+  border-radius: 99px; background: linear-gradient(#79cfce, #42a97f);
+}
+.sidebar-rodape {
+  background: linear-gradient(145deg, #f0fcf9, #eaf6ea);
+  border-color: #d3eadd;
+}
+.barra-superior {
+  background: rgb(255 255 255 / 79%);
+  backdrop-filter: blur(16px) saturate(125%);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
+  border-bottom-color: #dcebe9;
+}
+.indicador-local {
+  background: linear-gradient(120deg, #e7f8e6, #e1f8fb);
+  border-color: #c8e6dc; color: #336e56;
+}
+.avatar, .avatar-iniciais {
+  background: linear-gradient(145deg, #d9f5f6, #d7edda);
+  box-shadow: inset 0 1px 0 #fff, 0 3px 8px rgb(62 135 114 / 7%);
+}
+.botao-iconico { transition: background var(--aero-transicao), transform var(--aero-transicao), color var(--aero-transicao); }
+.botao-iconico:hover { background: #e2f5f3; color: #206b63; transform: translateY(-1px); }
+
+/* ─────────────────── Cartões e controles ─────────────────── */
+.estatistica, .cartao, .modal, .login-cartao {
+  border-color: var(--aero-borda-vidro);
+  border-radius: var(--aero-raio-card);
+  box-shadow: var(--aero-sombra);
+}
+.estatistica, .cartao {
+  background: linear-gradient(155deg, rgb(255 255 255 / 98%) 0%, rgb(250 255 252 / 91%) 100%);
+}
+.estatistica, .cartao-servico, .atalhos button {
+  transition: transform var(--aero-transicao-lenta), box-shadow var(--aero-transicao-lenta), border-color var(--aero-transicao-lenta);
+}
+.estatistica:hover, .cartao-servico:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--aero-sombra-hover);
+  border-color: #b8e4d9;
+}
+.estatistica { position: relative; overflow: hidden; }
+.estatistica::before {
+  content: ''; position: absolute; top: 0; left: -35%; width: 32%; height: 2px;
+  background: linear-gradient(90deg, transparent, #9de5e3, transparent);
+  transition: left 650ms ease;
+}
+.estatistica:hover::before { left: 105%; }
+.icone-suave, .atalho-icone {
+  background: linear-gradient(145deg, #e5f9fa, #ddf2e7);
+  color: #387f74;
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgb(60 139 113 / 9%);
+}
+.botao { transition: color var(--aero-transicao), background var(--aero-transicao), border-color var(--aero-transicao), box-shadow var(--aero-transicao), transform var(--aero-transicao); }
+.botao.primario {
+  background: var(--aero-gradiente-botao);
+  color: #fff;
+  border-color: #27775d;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 23%), 0 7px 16px rgb(43 123 101 / 17%);
+  position: relative;
+  overflow: hidden;
+}
+.botao.primario::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(110deg, transparent 0%, rgb(255 255 255 / 18%) 45%, transparent 75%);
+  transform: translateX(-130%);
+  transition: transform 600ms ease;
+}
+.botao.primario:hover:not(:disabled) { background: linear-gradient(145deg, #3a9c78, #28785c 65%, #286d7d); box-shadow: inset 0 1px 0 rgb(255 255 255 / 22%), 0 10px 21px rgb(42 133 106 / 22%); }
+.botao.primario:hover:not(:disabled)::after { transform: translateX(130%); }
+.botao.secundario, .botao.pequeno.secundario {
+  background: linear-gradient(150deg, #fff, #f4fcf9);
+  border-color: #d0e9e1; color: #28685b;
+}
+.botao.secundario:hover:not(:disabled) { background: #e7f8f3; border-color: #98d7c7; }
+.status { border: 1px solid rgb(76 119 91 / 7%); }
+.status.ativo, .status.confirmado, .status.realizado { background: #e3f6ec; color: #246448; }
+.status.agendado { background: #fff5de; color: #8c6e2f; }
+.status.cancelado, .status.inativo, .status.nao_compareceu { background: #fff0ec; color: #98534e; }
+.atalhos button { background: linear-gradient(125deg, #fff, #f7fdfb); border-color: #d9ebe6; }
+.atalhos button:hover { background: #e8f9f6; border-color: #a9dbce; transform: translateX(3px); box-shadow: 0 8px 18px rgb(38 130 106 / 8%); }
+.nota-seguranca { background: linear-gradient(100deg, #eff9ef, #eefaf8); border-color: #d9ecdf; }
+.cartao-tabela { border: 1px solid #dfebe5; }
+.filtros { background: linear-gradient(110deg, #fff, #f9fdfa); }
+.tabela th { background: #f3faf7; color: #55776a; }
+.tabela tbody tr { transition: background 180ms ease; }
+.tabela tbody tr:hover { background: #f4fbf9; }
+.campo-busca { background: #fff; border-color: #cfe5dc; transition: border-color var(--aero-transicao), box-shadow var(--aero-transicao); }
+.campo-busca:focus-within { border-color: #64b7bd; box-shadow: var(--aero-brilho); }
+.filtros select, .filtros input[type=date] { background: #fff; border-color: #d1e5de; }
+.filtros select:focus-visible, .filtros input[type=date]:focus-visible { outline-color: var(--aero-foco); }
+
+/* ─────────────────── Campos do design system ─────────────────── */
+.aero-campo { display: block; position: relative; width: 100%; min-width: 0; }
+.aero-campo__icone {
+  pointer-events: none; z-index: 1; position: absolute; left: 13px; top: 50%;
+  transform: translateY(-50%); display: grid; place-items: center;
+  color: #6a9a8b; transition: color var(--aero-transicao), transform var(--aero-transicao);
+}
+.aero-campo--multilinha .aero-campo__icone { top: 17px; transform: none; }
+.aero-campo > :is(input, select, textarea),
+.formulario .aero-campo > :is(input, select, textarea),
+.login-cartao .aero-campo > :is(input, select, textarea) {
+  width: 100%; min-width: 0; padding-left: 42px;
+  border-radius: var(--aero-raio-campo);
+  border: 1px solid #cfe4dc;
+  background: linear-gradient(180deg, #fff, #fbfffd);
+  color: #284c40;
+  transition: border-color var(--aero-transicao), box-shadow var(--aero-transicao), background var(--aero-transicao);
+}
+.aero-campo > select { padding-right: 24px; }
+.aero-campo > textarea { resize: vertical; min-height: 94px; }
+.aero-campo:hover > :is(input, select, textarea) { border-color: #9acfc0; }
+.aero-campo:focus-within > :is(input, select, textarea) {
+  border-color: #4cafa9; outline: none; background: #fff; box-shadow: var(--aero-brilho);
+}
+.aero-campo:focus-within .aero-campo__icone { color: #20877c; transform: translateY(-50%) scale(1.1); }
+.aero-campo--multilinha:focus-within .aero-campo__icone { transform: scale(1.1); }
+.aero-campo input::placeholder, .aero-campo textarea::placeholder { color: #8aa79d; }
+.formulario label, .login-cartao label { color: #496d5f; }
+.modal {
+  background: linear-gradient(145deg, rgb(255 255 255 / 98%), rgb(247 254 250 / 98%));
+  border-color: #d3eae2;
+  box-shadow: 0 32px 100px rgb(21 64 56 / 25%);
+}
+.modal-cabecalho { background: linear-gradient(95deg, #f8fffd, #eaf9f6); border-bottom-color: #dceee7; }
+.sobreposicao-modal { background: rgb(14 45 41 / 43%); backdrop-filter: blur(8px) saturate(125%); }
+.nota-form { background: #edf9f5; color: #527b6d; }
+
+/* ─────────────────── Fundo atmosférico decorativo ─────────────────── */
+.aero-atmosfera { position: absolute; inset: 0; pointer-events: none; overflow: hidden; isolation: isolate; }
+.aero-atmosfera span { position: absolute; display: block; }
+.aero-atmosfera__luz {
+  width: 300px; height: 300px; right: 3%; top: -45%; border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, rgb(255 255 255 / 42%) 22%, transparent 70%);
+  filter: blur(3px);
+}
+.aero-atmosfera__orbe {
+  border-radius: 50%; border: 1px solid rgb(255 255 255 / 78%);
+  background:
+    radial-gradient(circle at 31% 25%, #fff 0 7%, rgb(255 255 255 / 65%) 8%, transparent 25%),
+    radial-gradient(circle at 28% 20%, rgb(222 254 251 / 85%), rgb(116 213 219 / 26%) 44%, rgb(55 139 156 / 22%) 78%, rgb(255 255 255 / 85%) 100%);
+  box-shadow: inset -10px -13px 23px rgb(20 112 133 / 12%), inset 8px 11px 20px rgb(255 255 255 / 83%), 0 14px 35px rgb(29 114 114 / 13%);
+  animation: aero-flutuar 8s ease-in-out infinite;
+}
+.aero-atmosfera__orbe--maior { width: 175px; height: 175px; right: 11%; top: 18%; }
+.aero-atmosfera__orbe--menor { width: 81px; height: 81px; right: 27%; top: 57%; animation-delay: -2s; }
+.aero-atmosfera__orbe--pequeno { width: 29px; height: 29px; right: 8%; top: 67%; animation-delay: -3.5s; }
+.aero-atmosfera__agua {
+  left: -15%; right: -15%; bottom: -32%; height: 57%; border-radius: 50% 50% 0 0;
+  background:
+    radial-gradient(ellipse at 60% 0%, rgb(255 255 255 / 48%), transparent 52%),
+    linear-gradient(0deg, rgb(40 154 165 / 24%), rgb(101 205 204 / 15%) 52%, transparent);
+  transform: rotate(-5deg);
+  border-top: 1px solid rgb(255 255 255 / 70%);
+}
+.aero-atmosfera__brilho {
+  width: 95px; height: 95px; right: 36%; top: 11%;
+  background: radial-gradient(circle, #fff 0 3%, transparent 5%),
+    conic-gradient(from 0deg, transparent 0 10%, rgb(255 255 255 / 85%) 24%, transparent 32% 56%, rgb(255 255 255 / 75%) 71%, transparent 82%);
+  opacity: .65; filter: blur(1px); clip-path: polygon(50% 0, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0 50%, 42% 42%);
+}
+@keyframes aero-flutuar { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+
+/* ─────────────────── Dashboard original com reflexos sutis ─────────────────── */
+.boas-vindas {
+  position: relative; isolation: isolate; overflow: hidden; min-height: 176px;
+  padding: 26px 30px; margin-bottom: 24px; border-radius: 25px;
+  border: 1px solid rgb(255 255 255 / 94%);
+  background: var(--aero-gradiente-paisagem);
+  box-shadow: var(--aero-sombra);
+}
+.boas-vindas > :not(.aero-atmosfera) { position: relative; z-index: 1; }
+.boas-vindas h1 { color: #275345; }
+.boas-vindas h1 span { color: #61a995; }
+.boas-vindas p { color: #547467; }
+.aero-atmosfera--inicio .aero-atmosfera__orbe--maior { width: 126px; height: 126px; right: 8%; top: 0%; opacity: .70; }
+.aero-atmosfera--inicio .aero-atmosfera__orbe--menor { width: 56px; height: 56px; right: 20%; top: 64%; opacity: .58; }
+.aero-atmosfera--inicio .aero-atmosfera__orbe--pequeno { width: 21px; height: 21px; right: 3%; top: 70%; }
+.aero-atmosfera--inicio .aero-atmosfera__agua { bottom: -50%; height: 78%; }
+.aero-atmosfera--inicio .aero-atmosfera__brilho { right: 25%; top: 6%; }
+
+/* ─────────────────── Login: Frutiger Aero equilibrado ─────────────────── */
+.login-esquerda {
+  isolation: isolate; position: relative; overflow: hidden;
+  background:
+    radial-gradient(ellipse 66% 49% at 82% 18%, rgb(218 250 255 / 90%), transparent 83%),
+    linear-gradient(148deg, #3f9c9b 0%, #2f9b83 39%, #407e68 100%);
+}
+.login-esquerda > :not(.aero-atmosfera) { position: relative; z-index: 1; }
+.login-esquerda .aero-atmosfera__orbe--maior { top: 13%; right: 10%; width: 270px; height: 270px; }
+.login-esquerda .aero-atmosfera__orbe--menor { top: 53%; right: 4%; width: 95px; height: 95px; }
+.login-esquerda .aero-atmosfera__orbe--pequeno { top: 39%; right: 45%; width: 43px; height: 43px; }
+.login-esquerda .aero-atmosfera__agua { bottom: -29%; height: 59%; }
+.login-mensagem { position: relative; text-shadow: 0 2px 9px rgb(18 79 68 / 13%); }
+.login-mensagem h1 { max-width: 700px; }
+.login-mensagem p { color: #ebfff8; }
+.login-mensagem .sobretitulo, .rodape-login { color: #e3fff3; }
+.login-direita {
+  background:
+    radial-gradient(circle at 100% 5%, rgb(192 238 251 / 40%), transparent 48%),
+    radial-gradient(circle at 0 100%, rgb(200 237 208 / 37%), transparent 49%),
+    #f4faf8;
+}
+.login-cartao {
+  max-width: 440px;
+  background: rgb(255 255 255 / 85%);
+  border: 1px solid rgb(255 255 255 / 90%);
+  padding: 38px 34px 28px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.login-cartao h2 { color: #275946; }
+.login-cartao p { color: #667f72; }
+.login-selo { color: #327b72; }
+.login-nota { color: #6e897c; }
+
+/* ─────────────────── Responsividade e acessibilidade ─────────────────── */
+@media (max-width: 1200px) {
+  .boas-vindas { padding: 24px; }
+  .aero-atmosfera--inicio .aero-atmosfera__orbe--maior { right: 2%; opacity: .43; }
+}
+@media (max-width: 750px) {
+  .sidebar { background: #f9fffc; }
+  .boas-vindas { min-height: 190px; padding: 21px; }
+  .boas-vindas .botao { align-self: flex-start; }
+  .aero-atmosfera--inicio .aero-atmosfera__orbe--maior { width: 88px; height: 88px; right: 0; top: -25px; }
+  .aero-atmosfera--inicio .aero-atmosfera__orbe--menor { display: none; }
+  .login-esquerda .aero-atmosfera__orbe--maior { width: 120px; height: 120px; top: 35%; right: 4%; opacity: .58; }
+  .login-esquerda .aero-atmosfera__orbe--menor { width: 39px; height: 39px; right: 45%; top: 11%; }
+  .login-cartao { padding: 23px 20px; }
+  .formulario .aero-campo > :is(input, select, textarea) { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aero-atmosfera__orbe, .botao.primario::after { animation: none; transition: none; }
+}
