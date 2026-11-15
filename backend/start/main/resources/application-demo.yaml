@@ -1,0 +1,10 @@
+spring:
+  security:
+    user:
+      name: ${CAREBYGABI_DEMO_USER}
+      password: ${CAREBYGABI_DEMO_PASSWORD}
+  jpa:
+    open-in-view: false
+
+server:
+  address: 127.0.0.1

@@ -1,5 +1,6 @@
 import type { DadosClinica, Tela } from '../javascript/paginas/pacientes/Modelos'
 import { Icone } from '../javascript/componentes/Icone'
+import { AeroAtmosfera } from '../javascript/componentes/temas/AeroAtmosfera'
 import { dataHoraBR, horaBR, moeda, rotuloSituacao } from '../javascript/helpers/Formatacao'
 
 export function InicioPagina({ dados, mudarTela }: { dados: DadosClinica; mudarTela: (t: Tela) => void }) {
@@ -12,7 +13,7 @@ export function InicioPagina({ dados, mudarTela }: { dados: DadosClinica; mudarT
   const valorReferencia = futuros.reduce((total, a) => total + (dados.servicos.find(s => s.id === a.servicoId)?.valorPadrao ?? 0), 0)
 
   return <>
-    <div className="boas-vindas"><div><span className="sobretitulo">SEU ESPAÇO DE CUIDADO</span><h1>Olá, seja bem-vinda <span>✳</span></h1>
+    <div className="boas-vindas"><AeroAtmosfera variante="inicio"/><div><span className="sobretitulo">SEU ESPAÇO DE CUIDADO</span><h1>Olá, seja bem-vinda <span>✳</span></h1>
       <p>Organização e acolhimento em cada detalhe da rotina clínica.</p></div>
       <button className="botao primario" onClick={() => mudarTela('agenda')}><Icone nome="adicionar" tamanho={18} /> Novo agendamento</button>
     </div>
@@ -41,3 +42,4 @@ export function InicioPagina({ dados, mudarTela }: { dados: DadosClinica; mudarT
     </div>
   </>
 }
+
