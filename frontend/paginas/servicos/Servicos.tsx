@@ -9,6 +9,15 @@ import { moeda } from '../../javascript/helpers/Formatacao'
 const vazio: ServicoFormulario = {
   nome: '', categoria: 'CLINICO', descricao: null, duracaoMinutos: 50, valorPadrao: null, ativo: true,
 }
+// Exemplo facultativo: preencher o formulário NÃO grava nada no banco.
+const exemploSessaoClinica: ServicoFormulario = {
+  nome: 'Sessão clínica — Psicoterapia individual',
+  categoria: 'CLINICO',
+  descricao: 'Sessão clínica individual de psicoterapia. Valor padrão de referência por sessão: R$ 180,00.',
+  duracaoMinutos: 50,
+  valorPadrao: 180,
+  ativo: true,
+}
 const rotuloCategoria: Record<CategoriaServico, string> = {
   CLINICO: 'Clínico', ORGANIZACIONAL: 'Organizacional', OUTRO: 'Outro',
 }
@@ -39,10 +48,18 @@ export function ServicosPagina({ servicos, aoSalvar, ocupado }: {
         <div className="servico-dados"><span><Icone nome="relogio" tamanho={16}/> {s.duracaoMinutos} min</span><strong>{moeda(s.valorPadrao)}</strong></div>
         <button className="botao secundario pequeno" onClick={() => abrir(s)}><Icone nome="editar" tamanho={15}/> Editar serviço</button>
       </article>)}
-      {!servicos.length && <div className="cartao vazio cartao-vazio"><Icone nome="servicos" tamanho={32}/><strong>Nenhum serviço cadastrado</strong><span>Cadastre pelo menos um serviço para criar agendamentos.</span></div>}
+      {!servicos.length && <div className="cartao vazio cartao-vazio"><Icone nome="servicos" tamanho={32}/><strong>Nenhum serviço cadastrado</strong><span>Exemplo de catálogo: sessão clínica individual, 50 minutos, referência de R$ 180,00. Nenhum registro é criado automaticamente.</span></div>}
     </div>
     {editando !== undefined && <Modal titulo={editando ? 'Editar serviço' : 'Cadastrar serviço'} fechar={() => setEditando(undefined)}>
       <form className="formulario" onSubmit={salvar}>
+        {editando === null && <div className="sugestao-servico" role="note">
+          <Icone nome="servicos" tamanho={19} />
+          <div className="sugestao-servico__texto">
+            <strong>Exemplo: sessão clínica · R$ 180,00</strong>
+            <span>Psicoterapia individual de 50 minutos. Preencha como sugestão e revise antes de salvar.</span>
+          </div>
+          <button type="button" className="botao secundario pequeno" onClick={() => setForm({ ...exemploSessaoClinica })}>Usar exemplo</button>
+        </div>}
         <label>Nome do serviço <b>*</b>
           <CampoIcone icone="descricao"><input required maxLength={160} placeholder="Ex.: Psicoterapia individual" value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })}/></CampoIcone>
         </label>
