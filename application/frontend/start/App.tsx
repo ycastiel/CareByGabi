@@ -17,6 +17,7 @@ import { ServicosPagina } from '../../../frontend/paginas/servicos/Servicos'
 import { ProntuariosPagina } from '../../../frontend/paginas/prontuarios/Prontuarios'
 import { AvaliacoesPagina } from '../../../frontend/paginas/avaliacoes/Avaliacoes'
 import { DocumentosPagina } from '../../../frontend/paginas/documentos/Documentos'
+import { FinanceiroPagina } from '../../../frontend/paginas/financeiro/Financeiro'
 
 const dadosVazios: DadosClinica = { pacientes: [], servicos: [], agendamentos: [], prontuarios: [] }
 
@@ -106,31 +107,31 @@ export default function App() {
     setAviso('')
   }
 
-  if (!credenciais) return <div className="login-pagina"><div className="login-esquerda"><AeroAtmosfera variante="entrada"/>
+  if (!credenciais) return <div className="login-pagina"><div className="login-esquerda"><AeroAtmosfera variante="entrada" />
     <div className="logo-login"><div className="marca-simbolo grande"><LogoGabriela className="logo-profissional" /></div><span>CareByGabi</span></div>
     <div className="login-mensagem"><span className="sobretitulo">SEU ESPAÇO DE CUIDADO</span><h1>Uma rotina mais leve começa com organização.</h1>
       <p>Pacientes, consultas e serviços em um só lugar. Uma demonstração construída para acompanhar o dia a dia clínico.</p></div>
     <div className="rodape-login">MVP local · Dados fictícios · Não é um prontuário clínico homologado</div>
   </div><div className="login-direita"><form className="login-cartao" onSubmit={entrar}>
-      <span className="login-selo"><Icone nome="escudo" tamanho={17}/> Acesso demonstrativo</span>
-      <h2>Bem-vinda de volta</h2><p>Utilize as credenciais configuradas no backend para acessar o ambiente local.</p>
-      {erro && <div className="aviso erro" role="alert"><Icone nome="alerta" tamanho={19}/>{erro}</div>}
-      <label>Usuário<CampoIcone icone="usuario"><input autoComplete="username" placeholder="Seu usuário de demonstração" required value={usuarioDigitado} onChange={e => setUsuarioDigitado(e.target.value)}/></CampoIcone></label>
-      <label>Senha<CampoIcone icone="cadeado"><input type="password" autoComplete="current-password" placeholder="Sua senha local" required value={senhaDigitada} onChange={e => setSenhaDigitada(e.target.value)}/></CampoIcone></label>
-      <button className="botao primario login-botao" disabled={ocupado} type="submit">{ocupado ? 'Conectando...' : 'Entrar no consultório'}<Icone nome="seta" tamanho={18}/></button>
-      <div className="login-nota">A senha permanece apenas na memória desta aba e não é salva no navegador.</div>
-    </form></div></div>
+    <span className="login-selo"><Icone nome="escudo" tamanho={17} /> Acesso demonstrativo</span>
+    <h2>Bem-vinda de volta</h2><p>Utilize as credenciais configuradas no backend para acessar o ambiente local.</p>
+    {erro && <div className="aviso erro" role="alert"><Icone nome="alerta" tamanho={19} />{erro}</div>}
+    <label>Usuário<CampoIcone icone="usuario"><input autoComplete="username" placeholder="Seu usuário de demonstração" required value={usuarioDigitado} onChange={e => setUsuarioDigitado(e.target.value)} /></CampoIcone></label>
+    <label>Senha<CampoIcone icone="cadeado"><input type="password" autoComplete="current-password" placeholder="Sua senha local" required value={senhaDigitada} onChange={e => setSenhaDigitada(e.target.value)} /></CampoIcone></label>
+    <button className="botao primario login-botao" disabled={ocupado} type="submit">{ocupado ? 'Conectando...' : 'Entrar no consultório'}<Icone nome="seta" tamanho={18} /></button>
+    <div className="login-nota">A senha permanece apenas na memória desta aba e não é salva no navegador.</div>
+  </form></div></div>
 
   return <Estrutura tela={tela} mudarTela={setTela} sair={sair} aoAtualizar={() => void atualizar()} usuario={credenciais.usuario}>
-    {erro && <div className="aviso erro" role="alert"><Icone nome="alerta" tamanho={19}/><span>{erro}</span><button onClick={() => setErro('')} aria-label="Dispensar erro"><Icone nome="fechar" tamanho={16}/></button></div>}
-    {aviso && <div className="aviso sucesso" role="status"><Icone nome="checar" tamanho={19}/><span>{aviso}</span><button onClick={() => setAviso('')} aria-label="Dispensar confirmação"><Icone nome="fechar" tamanho={16}/></button></div>}
-    {tela === 'inicio' && <InicioPagina dados={dados} mudarTela={setTela}/>}
+    {erro && <div className="aviso erro" role="alert"><Icone nome="alerta" tamanho={19} /><span>{erro}</span><button onClick={() => setErro('')} aria-label="Dispensar erro"><Icone nome="fechar" tamanho={16} /></button></div>}
+    {aviso && <div className="aviso sucesso" role="status"><Icone nome="checar" tamanho={19} /><span>{aviso}</span><button onClick={() => setAviso('')} aria-label="Dispensar confirmação"><Icone nome="fechar" tamanho={16} /></button></div>}
+    {tela === 'inicio' && <InicioPagina dados={dados} mudarTela={setTela} />}
     {tela === 'pacientes' && <PacientesPagina pacientes={dados.pacientes} ocupado={ocupado} aoSalvar={(id: string | null, d: PacienteFormulario) =>
-      executar(id ? 'Paciente atualizado' : 'Paciente cadastrado', () => id ? api.pacientes.atualizar(credenciais, id, d) : api.pacientes.criar(credenciais, d))}/>}
+      executar(id ? 'Paciente atualizado' : 'Paciente cadastrado', () => id ? api.pacientes.atualizar(credenciais, id, d) : api.pacientes.criar(credenciais, d))} />}
     {tela === 'agenda' && <AgendaPagina agendamentos={dados.agendamentos} pacientes={dados.pacientes} servicos={dados.servicos}
       ocupado={ocupado} irParaPacientes={() => setTela('pacientes')} irParaServicos={() => setTela('servicos')}
       aoSalvar={(id: string | null, d: AgendamentoFormulario) => executar(id ? 'Agendamento atualizado' : 'Consulta agendada', () =>
-        id ? api.agendamentos.atualizar(credenciais, id, d) : api.agendamentos.criar(credenciais, d))}/>}
+        id ? api.agendamentos.atualizar(credenciais, id, d) : api.agendamentos.criar(credenciais, d))} />}
     {tela === 'prontuarios' && <ProntuariosPagina
       pacientes={dados.pacientes} prontuarios={dados.prontuarios} versaoRegistros={versaoRegistros}
       ocupado={ocupado} aoAbrir={abrirProntuario}
@@ -142,9 +143,10 @@ export default function App() {
         () => api.prontuarios.finalizarRegistro(credenciais, id, registroId))}
       aoEncerrar={id => executar('Prontuário encerrado', () => api.prontuarios.encerrar(credenciais, id))}
     />}
-    {tela === 'avaliacoes' && <AvaliacoesPagina credenciais={credenciais} pacientes={dados.pacientes}/>}
-    {tela === 'documentos' && <DocumentosPagina credenciais={credenciais} pacientes={dados.pacientes}/>}
+    {tela === 'avaliacoes' && <AvaliacoesPagina credenciais={credenciais} pacientes={dados.pacientes} />}
+    {tela === 'documentos' && <DocumentosPagina credenciais={credenciais} pacientes={dados.pacientes} />}
+    {tela === 'financeiro' && <FinanceiroPagina credenciais={credenciais} pacientes={dados.pacientes} servicos={dados.servicos} />}
     {tela === 'servicos' && <ServicosPagina servicos={dados.servicos} ocupado={ocupado} aoSalvar={(id: string | null, d: ServicoFormulario) =>
-      executar(id ? 'Serviço atualizado' : 'Serviço cadastrado', () => id ? api.servicos.atualizar(credenciais, id, d) : api.servicos.criar(credenciais, d))}/>}
+      executar(id ? 'Serviço atualizado' : 'Serviço cadastrado', () => id ? api.servicos.atualizar(credenciais, id, d) : api.servicos.criar(credenciais, d))} />}
   </Estrutura>
 }

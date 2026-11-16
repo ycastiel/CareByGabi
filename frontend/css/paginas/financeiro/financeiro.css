@@ -1,0 +1,272 @@
+/* CareByGabi · Entrega 7 · Financeiro demonstrativo
+   Sem badges decorativos: situações financeiras usam texto e contraste discreto. */
+.financeiro-resumo {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 21px 0
+}
+
+.financeiro-indicador {
+  display: grid;
+  align-content: space-between;
+  min-height: 142px;
+  gap: 9px;
+  padding: 20px 21px;
+  border: 1px solid #b7e0e5;
+  border-radius: 19px;
+  background: linear-gradient(145deg, #dceff6 0%, #d9f2f4 52%, #e4f5df 100%);
+  box-shadow: inset 0 1px 0 #ffffffcc, 0 10px 24px #2c839115
+}
+
+.financeiro-indicador:nth-child(2) {
+  background: linear-gradient(135deg, #d7f5ee, #e4f6e7)
+}
+
+.financeiro-indicador:nth-child(3) {
+  background: linear-gradient(135deg, #e3f1ff, #e3f5f1)
+}
+
+.financeiro-indicador:nth-child(4) {
+  background: linear-gradient(135deg, #e4f1fa, #d6ebe6)
+}
+
+.financeiro-indicador>span {
+  font-size: 12px;
+  font-weight: 750;
+  color: #35666c
+}
+
+.financeiro-indicador>strong {
+  font-family: Georgia, serif;
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 500;
+  color: #21565c;
+  overflow-wrap: anywhere
+}
+
+.financeiro-indicador>small {
+  color: #5f8282;
+  font-size: 11px
+}
+
+.financeiro-listagem {
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #c1e3e7;
+  background: #f4fbfa
+}
+
+.financeiro-filtros {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 18px;
+  border-bottom: 1px solid #cae4e6
+}
+
+.financeiro-filtros select,
+.financeiro-mes input {
+  padding: 11px 12px;
+  border: 1px solid #add4dc;
+  border-radius: 10px;
+  background: #f8feff;
+  color: #285761;
+  font-size: 12px
+}
+
+.financeiro-busca {
+  flex: 1;
+  min-width: 190px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 11px;
+  border: 1px solid #add4dc;
+  border-radius: 12px;
+  background: #eaf8ff;
+  color: #3c8ea2
+}
+
+.financeiro-busca input {
+  flex: 1;
+  min-width: 0;
+  min-height: 42px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #265764;
+  font-size: 12px
+}
+
+.financeiro-mes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #456b74
+}
+
+.financeiro-filtros>small {
+  margin-left: auto;
+  font-size: 11px;
+  color: #5b7779
+}
+
+.financeiro-tabela th {
+  background: #e5f4f5;
+  color: #37656c
+}
+
+.financeiro-tabela td {
+  background: #f8fcfc;
+  border-color: #deeeee
+}
+
+.financeiro-tabela tr:hover td {
+  background: #eaf6fa
+}
+
+.financeiro-descricao {
+  display: block;
+  margin-top: 6px;
+  max-width: 270px;
+  color: #6b8885;
+  overflow-wrap: anywhere
+}
+
+.financeiro-estado {
+  font-size: 11px;
+  font-weight: 750;
+  color: #3c6c72;
+  white-space: nowrap
+}
+
+.financeiro-estado--paga {
+  color: #25765c
+}
+
+.financeiro-estado--parcial {
+  color: #977239
+}
+
+.financeiro-estado--cancelada {
+  color: #9d5c5c
+}
+
+.financeiro-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 185px
+}
+
+.financeiro-pagamentos {
+  padding: 22px 26px;
+  display: grid;
+  gap: 14px
+}
+
+.financeiro-saldo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 19px;
+  border-radius: 15px;
+  background: linear-gradient(130deg, #d9f2fa, #dcf3e4);
+  color: #376874;
+  font-size: 13px
+}
+
+.financeiro-saldo strong {
+  font-size: 18px;
+  color: #236663
+}
+
+.financeiro-pagamentos h3 {
+  font-size: 15px;
+  color: #2c615f;
+  margin: 4px 0
+}
+
+.financeiro-pagamentos>p {
+  font-size: 12px;
+  color: #648281
+}
+
+.financeiro-pagamentos>.formulario {
+  padding: 15px 0 0;
+  border-top: 1px solid #c3e1e1
+}
+
+.financeiro-historico {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0
+}
+
+.financeiro-historico li {
+  padding: 13px 15px;
+  border: 1px solid #c8e7e2;
+  border-radius: 12px;
+  background: #e9f8f3
+}
+
+.financeiro-historico li>div {
+  display: grid;
+  gap: 5px
+}
+
+.financeiro-historico small {
+  color: #6a8580;
+  font-size: 11px
+}
+
+@media(max-width:1250px) {
+  .financeiro-resumo {
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+  }
+}
+
+@media(max-width:650px) {
+  .financeiro-resumo {
+    grid-template-columns: 1fr 1fr;
+    gap: 9px
+  }
+
+  .financeiro-indicador {
+    padding: 13px;
+    min-height: 128px
+  }
+
+  .financeiro-indicador>strong {
+    font-size: 22px
+  }
+
+  .financeiro-filtros {
+    padding: 12px
+  }
+
+  .financeiro-mes {
+    width: 100%
+  }
+
+  .financeiro-pagamentos {
+    padding: 15px
+  }
+
+  .financeiro-saldo {
+    flex-direction: column;
+    align-items: flex-start
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .financeiro-indicador {
+    transition: none
+  }
+}
