@@ -381,3 +381,39 @@ Respostas: registrar abaixo de cada pergunta depois do teste; não colocar respo
 **Pontuação Entrega 6:** ___ / 12. **Acumulada:** ___ / 70.
 
 **Critério permanente:** menos de 50% requer revisão orientada, de 50% a 69% reforço focalizado e de 70% para cima avanço. Erros importantes de privacidade/segurança exigem revisão, mesmo com nota alta. Questões podem ser aplicadas individualmente após demonstrar os módulos.
+
+---
+
+## Entrega 7 — Financeiro (14 pontos)
+
+**Q71.** Por que `cobrancas` e `pagamentos` são duas tabelas distintas? Uma cobrança pode ter quantos pagamentos?
+
+**Q72.** Por que o backend representa valores monetários como `BigDecimal` em vez de `double`?
+
+**Q73.** Qual a vantagem de enviar valores monetários como strings decimais na resposta JSON e somar centavos inteiros no frontend?
+
+**Q74.** Explique a diferença entre uma cobrança `PENDENTE`, `PARCIAL`, `PAGA` e `CANCELADA`.
+
+**Q75.** Por que `ATRASADA` é um indicador derivado do vencimento e do saldo, e não um novo valor de `situacao` na V1?
+
+**Q76.** Por que não criamos uma cobrança automaticamente ao criar um agendamento?
+
+**Q77.** O que ocorre se dois pagamentos de R$ 120,00 chegarem ao mesmo tempo para uma cobrança com saldo de R$ 180,00?
+
+**Q78.** Qual o papel do `@Transactional` e do `SELECT ... FOR UPDATE` na operação de recebimento?
+
+**Q79.** Por que o saldo deve ser recalculado **em uma segunda consulta SQL**, após adquirir o lock da cobrança?
+
+**Q80.** O que protege o banco contra um pagamento maior que o saldo: o componente React, a API, ou ambos? Qual deles é indispensável?
+
+**Q81.** Por que o MVP não permite excluir ou alterar um pagamento já registrado? O que seria necessário para implementar estorno?
+
+**Q82.** O que significa preservar o valor da cobrança mesmo que `servicos.valor_padrao` mude depois?
+
+**Q83.** Qual a diferença entre uma autenticação de demonstração com Basic Auth e a identidade/permissões necessárias para operar uma clínica real?
+
+**Q84.** Se a API receber um `POST /pagamentos` e a resposta se perder na rede, qual o risco de reenvio? Que mecanismo uma versão de produção precisaria?
+
+**Pontuação Entrega 7:** ___ / 14. **Acumulada:** ___ / 84.
+
+**Próxima revisão:** depois de testar os pagamentos parciais e reiniciar o backend. Segurança/privacidade e integridade contábil exigem revisão mesmo com pontuação alta.
